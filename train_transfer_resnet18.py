@@ -13,6 +13,7 @@ from tensorboardX import SummaryWriter
 from tqdm import tqdm
 
 from dataloaders.standart_dataloader import EmotionImagesDataset
+from utils.training_functions import *
 
 
 # Load data
@@ -49,4 +50,4 @@ exp_lr_scheduler = lr_scheduler.StepLR(optimizer_conv, step_size=7, gamma=0.1)
 
 data_loaders = {'train': train_loader, 'val': val_loader}
 model = train_model(model, data_loaders, criterion, optimizer_conv, exp_lr_scheduler,
-                       num_epochs=20) 
+                       'weights/pretrained_resnet18.pth', device, num_epochs=20) 
