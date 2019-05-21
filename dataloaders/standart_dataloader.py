@@ -15,7 +15,6 @@ class EmotionImagesDataset(Dataset):
     def __init__(self, path_to_txt, root_dir):
 
         self.data_transformations = transforms.Compose([
-                # transforms.Resize((256,256)),
                 transforms.ToTensor(),
                 transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
             ])
@@ -32,11 +31,7 @@ class EmotionImagesDataset(Dataset):
         path_to_image = os.path.join(self.root_dir, self.imgs_paths[idx])
 
         X = cv2.cvtColor(cv2.imread(path_to_image), cv2.COLOR_BGR2RGB)
-
-        start = time.time()
         X = cv2.resize(X, (256, 256), interpolation=cv2.INTER_NEAREST)
-        print(time.time() - start)
-        # Image.fromarray(X)
         X = self.data_transformations(X)
         
         y = self.imgs_labels[idx]
